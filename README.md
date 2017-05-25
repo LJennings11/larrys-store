@@ -14,6 +14,8 @@ You can search buy specifiying a full category, or buy specifiying a partial nam
 
 Administrators can edit add items, remove members, and view all previous transactions. Adminstrator actions are require a token. This token is passed on the REST calls.
 
+A default admin account is created: username=admin, password=admin
+
 ## Non-Admin actions
 
 Anyone can view the shop.
