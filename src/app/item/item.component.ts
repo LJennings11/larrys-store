@@ -24,8 +24,10 @@ export class ItemComponent implements OnInit {
   @Output() public onRemove:EventEmitter<Item> = null;
   @Output() public onBuy:EventEmitter<Item> = null;
   @Output() public onUpdate:EventEmitter<Item> = null;
+  @Output() public onAdd:EventEmitter<Item> = null;
 
   @Input() enableBuy:boolean = true;
+  @Input() enableAdd:boolean = false;
   @Input() enableRemove:boolean = true;
   @Input() enableUpdate:boolean = true;
   @Input() enableDescription:boolean = true;
@@ -39,6 +41,7 @@ export class ItemComponent implements OnInit {
       this.onRemove = new EventEmitter<Item>();
       this.onBuy = new EventEmitter<Item>();
       this.onUpdate = new EventEmitter<Item>();
+      this.onAdd = new EventEmitter<Item>();
     }
 
   ngOnInit() {
@@ -61,6 +64,10 @@ export class ItemComponent implements OnInit {
   update():void{
 
     this.onUpdate.emit(this.item);
+  }
+  add():void{
+
+    this.onAdd.emit(this.item);
   }
 
   getStockStatus(item:Item):string{

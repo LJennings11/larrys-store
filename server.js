@@ -1,9 +1,36 @@
 const express = require('express')
 const app = express()
 
+
 var crypto = require('crypto');
 var algorithm = 'aes-256-ctr';
 var password = 'd6F3Efeq';
+
+var fs = require('fs');
+
+
+function saveLocally(){    
+
+    console.log('before unlink: ');
+
+    var fs = require('fs');
+    if (fs.existsSync('data.json')) {
+        fs.unlinkSync('data.json')
+    }
+    
+
+    var saveData = {
+        users:users,
+        items:items,
+        history:history,
+        revenue
+    }
+
+    var saveDataString = JSON.stringify(saveData)
+
+    fs.writeFileSync('data.json',saveDataString,{encoding:'utf8',flag:'w'})
+
+}
 
 function encrypt(buffer) {
     var cipher = crypto.createCipher(algorithm, password)
@@ -54,93 +81,19 @@ function matchItems(a,query){
 }
 
 var revenue = 0;
-var users = [
-    { username: "admin", password: "admin", admin: true }
-]
+var users = [{ username: "admin", password: "admin", admin: true }]
 var history = []
-var items = [
-    {
-        "id": 1,
-        "name": "Teddy Bear",
-        "category": "toys",
-        "price": 5,
-        "count": 3,
-        "description": "A lovely, fluffy, fuzzy bear.",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDhH38h66rzv0Qvi1fq_jU9BwwKDmO53acSiPwupcwMrcD6i7K"
-    },
-    {
-        "id": 2,
-        "name": "Puzzle",
-        "category": "toys",
-        "price": 2.5,
-        "count": 5,
-        "description": "A difficult fun activity for tabletop adventures.",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnMfDnRS1PPgxQhrO80gGy5j0-bOohm7IgxP9t2Rtoi0Vd0S0U"
-    },
-    {
-        "id": 3,
-        "name": "Fossil",
-        "category": "micc",
-        "price": 25000,
-        "count": 10,
-        "description": "Soemthing extremely rare. It\"s proabbly from a dinosaur",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDQ7qA_SMFff5UCW0GlIiZLHHyUg4nif3mH-4tRbWSGnDkbGGG"
-    },
-    {
-        "id": 4,
-        "name": "Bear Food",
-        "category": "food",
-        "price": 12.5,
-        "count": 10,
-        "description": "Used by your local crazy cacthers clubs to find/catch bears.",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzEfS977x-4uGaepQnIyVPwYlbS7xqmdh5kHKotb21vJcfaHkd"
-    },
-    {
-        "id": 5,
-        "name": "Sliced Bread",
-        "category": "food",
-        "price": 3,
-        "count": 3,
-        "description": "The best thing since most people know.",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGVj_rSUSUU4GWM0VNJeUYmsnm0bPszksqLeHamBV5RmRv2Suh"
-    },
-    {
-        "id": 6,
-        "name": "Chips",
-        "category": "food",
-        "price": 3,
-        "count": 1,
-        "description": "Salty goodness in a small plastic bag.",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpw_JxUhdnr2crWWh5PYwLe24ZfoInaI1UlIJS7c-zr8mdj_cB"
-    },
-    {
-        "id": 7,
-        "name": "Computer",
-        "category": "technology",
-        "price": 3,
-        "count": 500,
-        "description": "Technology at its greatest. A wonderful computing machine.",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuUpRR1fe0qC30AqTccXvcZ6VUZPJXAObCInvmWbuNZB5Gxrjw"
-    },
-    {
-        "id": 8,
-        "name": "Water",
-        "category": "food",
-        "price": 3,
-        "count": 4,
-        "description": "The most neccessary resource on earth.",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAtkArWrzLJ_CriAjfDN3ybIDHGX4Gv3wKqqsRQy8QPEp0Orf9"
-    },
-    {
-        "id": 9,
-        "name": "Pen",
-        "category": "micc",
-        "price": 3,
-        "count": 1,
-        "description": "Much mightier than the sword. This can create.",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0GPQ6SFOxAaLZQlGsxfsO3mqcGU0GFvX-rDQkUBUTM_ZO0Q7O"
-    }
-]
+var items = []
+
+
+
+var obj = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+
+revenue=obj.revenue;
+users=obj.users;
+history=obj.history;
+items=obj.items;
+
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
@@ -164,10 +117,25 @@ app.get('/overview', function (req, res) {
 app.post('/login', function (req, res) {
 
     // Make sure we have the parameters
-    if(req.body.username==null) return res.send(JSON.stringify({result:"failure",error:"Missing username."}));
-    if(req.body.password==null) return res.send(JSON.stringify({result:"failure",error:"Missing password."}));
+    if(req.body.username==null&&req.query.token==null) return res.send(JSON.stringify({result:"failure",error:"Missing username."}));
+    if(req.body.password==null&&req.query.token==null) return res.send(JSON.stringify({result:"failure",error:"Missing password."}));
+
 
     var user = users.find(c => c.username == req.body.username && c.password==req.body.password);
+
+    // If we have a token and username
+    if(req.query.token!=null&&req.body.username!=null){
+    
+        // If the token validates for the usr with the token
+        if(validateRequest(req,false,req.body.username)){
+
+            // Get with just the username
+             user = users.find(c => c.username == req.body.username);
+        }else{
+
+            return res.send(JSON.stringify({result:"failure",error:"Access Denied"}));
+        }
+    }
 
     console.log("Trying to login: " + req.body.username);
 
@@ -201,6 +169,8 @@ app.post('/user/:username/delete', function (req, res) {
 
     users.splice(users.indexOf(user),1)
 
+    saveLocally();
+
     res.send(JSON.stringify({result:"success",data:users}))
 })
 app.post('/signup', function (req, res) {
@@ -219,7 +189,14 @@ app.post('/signup', function (req, res) {
 
     if (user == null) {
 
-        users.push({ username: req.body.username, password: req.body.password, admin: req.body.admin == true });
+        var newUser = { username: req.body.username, password: req.body.password, admin: req.body.admin == true }
+
+        result.token = encrypt(newUser.username + ":" + newUser.password).toString();
+        result.data = newUser;
+
+        users.push(newUser);
+
+        saveLocally();
     }else{
 
         result.error="The provided username is already taken."
@@ -337,6 +314,8 @@ app.post("/items/buy", function (req, res) {
     console.log("Adding:")
     console.log(history[history.length-1])
 
+    saveLocally();
+
     res.send(JSON.stringify({result:"success"}))
 })
 app.get("/items", function (req, res) {
@@ -398,7 +377,11 @@ app.post("/item/remove", function (req, res) {
         return 
     }
 
-    items.splice(items.indexOf(existingItem),1)
+    items = items.filter(c=>c.id!=id);
+
+    
+
+    saveLocally();
     
      res.send(JSON.stringify({result:"success",data:items}));
 })
@@ -413,6 +396,10 @@ app.post("/item/remove/all", function (req, res) {
     }
 
     items.splice(0,items.length)
+
+    
+
+    saveLocally();
     
     res.send(JSON.stringify({result:"success",data:items}));
 })
@@ -464,6 +451,8 @@ app.post("/item/add", function (req, res) {
     
     items.push({id:maxId+1,name:name,description:description,count:count,image:image,category:category,rating:2.5,price:price})
     
+    saveLocally();
+
     res.send(JSON.stringify({result:"success",data:items}));
 })
 
@@ -489,6 +478,8 @@ app.post("/item/update", function (req, res) {
 
         existingItem[prop] = item[prop]
     }
+
+    saveLocally();
     
     res.send(JSON.stringify({result:"success",data:items}));
 });

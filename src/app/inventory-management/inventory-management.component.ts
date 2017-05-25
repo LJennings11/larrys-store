@@ -28,10 +28,10 @@ export class InventoryManagementComponent implements OnInit {
 
 
 
-  createNewItem():void{
+  add(newItem:Item):void{
 
      this.stuffService
-         .addItem(this.create)
+         .addItem(newItem)
          .subscribe(res=>this.handleCreateResponse(res));
   }
 

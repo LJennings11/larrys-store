@@ -6,43 +6,7 @@
 <div class="wide">
         <h3>New Item:</h3>
 </div>
-<div class="wide">
-  <table>
-    <tr>
-      <td>
-      </td>
-      <td>
-          <input placeholder="Name" [(ngModel)]="create.name">
-      </td>
-      <td>
-          <input placeholder="Price" [(ngModel)]="create.price">
-      </td>
-      <td>
-          <input placeholder="Category" [(ngModel)]="create.category">
-      </td>
-      <td>
-          <input placeholder="Quantity" [(ngModel)]="create.count">
-      </td>
-      <td>
-
-			<button md-mini-fab (click)="createNewItem()"><span class="material-icons">add_circle</span></button>
-      </td>
-    </tr>
-
-    <tr>
-
-      <td colspan="6">
-          <textarea cols="300" placeholder="Description" [(ngModel)]="create.description"></textarea>
-      </td>
-    </tr>
-    <tr>
-
-      <td colspan="6">
-          <input placeholder="Image" size="300" [(ngModel)]="create.image">
-      </td>
-    </tr>
-  </table>
-</div>
+  <app-item [item]="create" [admin]="true" [enableAdd]="true" (onAdd)="add($event)"></app-item>
 
 <div class="wide">
 <h3>Inventory</h3>

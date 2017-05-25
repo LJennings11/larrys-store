@@ -74,13 +74,9 @@ export class StuffService {
 
   addItem(item:Item):Observable<any>{
 
-    var v = this.http
+    return this.http
       .post("http://localhost:3000/item/add?token="+this.userService.token,item)
       .map(res=>res.json());
-
-      v.subscribe(res=>this.handleAddIncreaseResponse(res))
-
-      return v;
 
   }
 

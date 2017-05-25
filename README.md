@@ -6,6 +6,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `node server.js` for the development backend server. This will start a server on port 3000. 
 
+The server saves data locally to a data.json file. When it starts, this data is retrieved when the server tarts. The file is updated
+when the data is changed successfuly while running. A data.backup.json exists in case things go wrong
+
 ## Searching
 
 You can search buy specifiying a full category, or buy specifiying a partial name. The search is case-insensitive.
@@ -20,6 +23,11 @@ A default admin account is created: username=admin, password=admin
 
 Anyone can view the shop.
 Members, when logged in, can add items to their cart and buy things. User specific actions require a token. This token is passed on the REST calls.
+
+## Token Based Authentication
+
+A very basic token is created during login, and passed back to the client side. This token is required for specific actions. The token
+and username are saved in local storage for somewhat persistent states.
 
 ## Development server
 

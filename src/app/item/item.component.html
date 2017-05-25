@@ -1,12 +1,13 @@
-<div [class.small]="small" (click)="showDetails()" (click)="showDetails()" *ngIf="!admin" [class.col_3]="!wide" style="float:left">
+<div [class.small]="small"  *ngIf="!admin" [class.col_3]="!wide" style="float:left">
 
-	<h5>{{item.name}}<span *ngIf="!small">({{getStockStatus(item)}})</span></h5>
+	<h5><a routerLink="/item/{{item.id}}">{{item.name}}</a>&nbsp;<span *ngIf="!small">({{getStockStatus(item)}})</span></h5>
 	<h6>Price: {{item.price | currency}}</h6>
+
 	<!-- Breadcrumbs -->
 	<ul class="breadcrumbs" *ngIf="!small">
 		<li><a routerLink="/">Home</a></li>
-		<li><a routerLink="/search">Shop</a></li>
-		<li><a routerLink="/search?query={{item.category}}">{{item.category}}</a></li>
+		<li><a routerLink="/doSearch">Shop</a></li>
+		<li><a routerLink="/doSearch?query={{item.category}}">{{item.category}}</a></li>
 		<li><a routerLink="/item/{{item.id}}">{{item.name}}</a></li>
 	</ul>
 
@@ -21,27 +22,32 @@
 </div>
 
 
-<div class="wide" *ngIf="admin">
-	<table>
+<div *ngIf="admin">
+	<table cellspacing="0" cellpadding="0">
 
 		<tr [class]="getStockStatus(item)" [class.golden]="item.sale" [class.even]="isEven">
 			<td>
-
-				<input placeholder="#" [value]="(index+1)+'. '">
+				<span *ngIf="!enableAdd">Number:
+				<input placeholder="#" [value]="(index+1)+'. '" [disabled]="enableAdd">
+				</span>
 			</td>
-			<td>
+			<td>				
 				<input type="checkbox" [(ngModel)]="item.sale" /> On Sale?
 			</td>
 			<td>
-				<input placeholder="First name" [(ngModel)]="item.name">
+				Name:
+				<input placeholder="Name" [(ngModel)]="item.name">
 			</td>
 			<td>
+				Category:
 				<input placeholder="Category" [(ngModel)]="item.category">
 			</td>
 			<td>
+				Price:
 				<input placeholder="Price" [(ngModel)]="item.price">
 			</td>
 			<td>
+				Quantity:
 				<input placeholder="Count" [(ngModel)]="item.count">
 			</td>
 			<td>
@@ -50,15 +56,18 @@
 			<td>
 				<button (click)="update()">Update</button>
 			</td>
-		</tr>
-		<tr>
-			<td colspan="8">
-				<textarea cols="300" placeholder="Description" [(ngModel)]="item.description"></textarea>
+			<td >
+				<button (click)="add()" *ngIf="enableAdd">add</button>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="8">
-				<input size="300" placeholder="Image" [(ngModel)]="item.image">
+			<td colspan="9">
+				<textarea cols="100" style='width:100%' placeholder="Description" [(ngModel)]="item.description"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="9">
+				<input size="100" style='width:100%' placeholder="Image" [(ngModel)]="item.image">
 			</td>
 		</tr>
 	</table>

@@ -42,7 +42,7 @@ export class OverviewComponent implements OnInit {
       this.errorService.add(res.error)
 
     }else{
-      alert(this.users = res.data)
+      this.users = res.data
     }
   }
 

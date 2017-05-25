@@ -12,6 +12,19 @@ export class SignInComponent implements OnInit {
   constructor(private userService:UserService, private errorService:ErrorService) { }
 
   ngOnInit() {
+
+    if(localStorage.getItem("token")!=null&&this.userService.user==null){
+
+        var token = localStorage.getItem("token");
+        var username = localStorage.getItem("username");
+
+        this.userService.token = token;
+        this.userService.username = username;
+        this.userService.password=null;
+
+        this.login();
+
+    }
   }
 
   login(){
@@ -25,6 +38,9 @@ export class SignInComponent implements OnInit {
     if(res.result=="success"){
       this.userService.user=res.data;
       this.userService.token=res.token;
+
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('username', res.data.username);
     }
 
     this.errorService.handleGetResponse(res);
@@ -37,6 +53,11 @@ export class SignInComponent implements OnInit {
   }
 
   handleSignupResponse(res):void{
+
+    if(res.result=="success"){
+      this.userService.user=res.data;
+      this.userService.token=res.token;
+    }
 
     this.errorService.handleGetResponse(res);
   }

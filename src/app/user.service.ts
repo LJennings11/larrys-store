@@ -22,12 +22,11 @@ export class UserService {
 
   login():Observable<any>{
 
+    var tokenString = this.token==null?"":"?token="+this.token;
 
    return this.http
-      .post("http://localhost:3000/login",{username:this.username,password:this.password})
+      .post("http://localhost:3000/login"+tokenString,{username:this.username,password:this.password,token:this.token})
       .map(res=>res.json())
-
-
   }
 
   handleLoginResponse(t,res):void{
@@ -84,6 +83,9 @@ export class UserService {
 
     this.user = null;
     this.token = null;
+
+    localStorage.removeItem("token")
+    localStorage.removeItem("username")
   }
 
   isMember():boolean{
