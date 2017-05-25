@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development backend server
 
-Run node server.js for the development backend server. This will start a server on port 3000.
+Run `node server.js` for the development backend server. This will start a server on port 3000.
 
 ## Development server
 
