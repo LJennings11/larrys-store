@@ -1,0 +1,15 @@
+<app-item 
+	*ngFor="let item of items; let i = index;" 
+	[item]="item" 
+	[index]="i" 
+	[admin]="admin"
+	[link]="link"
+	[small]="small"
+	(onRemove)="remove($event)" 
+	(onBuy)="buy($event)" 
+	(onUpdate)="update($event)" 
+	[enableBuy]="enableBuy" 
+	[enableDescription]="enableDescription"
+	[enableRemove]="enableRemove"
+	[enableUpdate]="enableUpdate">
+</app-item>

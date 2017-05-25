@@ -1,0 +1,36 @@
+<div class="larry-store title-header grid">
+  <div class="col_12">
+    <h1 class="header">
+      {{title}}
+    </h1>
+  </div>
+
+  <div class="col_12">
+    <button class="medium" class="col_1" (click)="doSearch()"><i class="fa fa-search"></i></button>
+    <input [(ngModel)]="search" class="col_11" id="text2" type="text" placeholder="Search For Items" />
+  </div>
+
+
+  <div class="notice error" (click)="errorService.remove(error)" *ngFor="let error of errorService.errors">
+    <i class="icon-remove-sign icon-large"></i> {{error}}
+    <a href="#" class="icon-remove"></a>
+  </div>
+
+  <h2 *ngIf="userService.isMember()">Hello <span class='bold'>{{userService.user.username}}</span>,&nbsp; enjoy you're stay.</h2>
+
+  <div class="col_12">
+    <!-- Tabs Center -->
+    <ul class="menu">
+      <li [class.current]="currentRouteIs('main')"><a href="" routerLink="/"><i class="fa fa-home"></i>Main</a></li>
+      <li [class.current]="currentRouteIs('manage')" *ngIf="userService.isAdmin()"><a href="" routerLink="/manage"><i class="fa fa-list"></i>Manage</a></li>
+      <li [class.current]="currentRouteIs('transactions')" *ngIf="userService.isAdmin()"><a href="" routerLink="/transactions"><i class="fa fa-money"></i>Transactions</a></li>
+      <li [class.current]="currentRouteIs('search')" *ngIf="!userService.isAdmin()"><a href="" routerLink="/search"><i class="fa fa-shopping-cart"></i>Shop</a></li>
+      <li [class.current]="currentRouteIs('cart')" *ngIf="userService.isNonAdmin()"><a href="" routerLink="/cart"><i class="fa fa-shopping-cart"></i>Cart ({{cartService.getTotal()}})</a></li>
+      <li *ngIf="userService.isMember()" style="float:right"><a href="" routerLink="/" (click)="userService.logout()"><i class="fa fa-arrow-left"></i>Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="col_12">
+    <router-outlet></router-outlet>
+  </div>
+</div>

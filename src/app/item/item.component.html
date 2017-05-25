@@ -1,0 +1,65 @@
+<div [class.small]="small" (click)="showDetails()" (click)="showDetails()" *ngIf="!admin" [class.col_3]="!wide" style="float:left">
+
+	<h5>{{item.name}}<span *ngIf="!small">({{getStockStatus(item)}})</span></h5>
+	<h6>Price: {{item.price | currency}}</h6>
+	<!-- Breadcrumbs -->
+	<ul class="breadcrumbs" *ngIf="!small">
+		<li><a routerLink="/">Home</a></li>
+		<li><a routerLink="/search">Shop</a></li>
+		<li><a routerLink="/search?query={{item.category}}">{{item.category}}</a></li>
+		<li><a routerLink="/item/{{item.id}}">{{item.name}}</a></li>
+	</ul>
+
+	<img [src]="item.image" class="align-left col_6" [class.width100]="wide" [class.floatLeft]="wide">
+	<p *ngIf="enableDescription">
+		{{item.description}} Find more great items like this and more and Larry\'s emporium of wonderful goods. All products sold
+		at Larry's emporium of wonderful goods are pure and safe to use/eat. Please come back and bring your family.
+
+	</p>
+		<button (click)="buy()" *ngIf="enableBuy">Add to Cart</button>
+		<button (click)="remove()" *ngIf="enableRemove">Remove from Cart</button>
+</div>
+
+
+<div class="wide" *ngIf="admin">
+	<table>
+
+		<tr [class]="getStockStatus(item)" [class.golden]="item.sale" [class.even]="isEven">
+			<td>
+
+				<input placeholder="#" [value]="(index+1)+'. '">
+			</td>
+			<td>
+				<input type="checkbox" [(ngModel)]="item.sale" /> On Sale?
+			</td>
+			<td>
+				<input placeholder="First name" [(ngModel)]="item.name">
+			</td>
+			<td>
+				<input placeholder="Category" [(ngModel)]="item.category">
+			</td>
+			<td>
+				<input placeholder="Price" [(ngModel)]="item.price">
+			</td>
+			<td>
+				<input placeholder="Count" [(ngModel)]="item.count">
+			</td>
+			<td>
+				<button (click)="remove()">Remove</button>
+			</td>
+			<td>
+				<button (click)="update()">Update</button>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="8">
+				<textarea cols="300" placeholder="Description" [(ngModel)]="item.description"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="8">
+				<input size="300" placeholder="Image" [(ngModel)]="item.image">
+			</td>
+		</tr>
+	</table>
+</div>

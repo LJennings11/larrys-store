@@ -1,0 +1,30 @@
+
+.item-listing{width:100%;}
+.example-header-image{border:1px solid black;background-image:url("//www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png")}
+
+.item-listing tr td{
+    padding:5px;
+}
+.item-listing tr{
+    padding:0px;
+    margin:0px;
+}
+
+.star{display:inline-block;width:25px;}
+
+.item-listing tr.in-stock.golden:hover{ color:white; }
+.item-listing tr.in-stock.golden.even{ background:#FFFFdd; }
+.item-listing tr.in-stock.golden:hover{ background-color:gold; }
+.item-listing tr.in-stock.golden{ color:gold; }
+.item-listing tr.in-stock.golden:hover{ color:white; }
+
+.item-listing tr.in-stock:hover{ color:white; }
+.item-listing tr.in-stock.even{ background:#DDDDDD; }
+.item-listing tr.in-stock:hover{ background-color:cornflowerblue; }
+
+.item-listing tr.out-of-stock {  background:#AAAAAA; }
+.item-listing tr.out-of-stock.even { background:#666; }
+.item-listing tr.out-of-stock:hover{ background-color:red;}
+
+
+

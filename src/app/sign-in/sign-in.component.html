@@ -1,0 +1,16 @@
+<div class="grid flex">
+  <div class="col_1"><label class="medium">Username</label></div>
+  <div class="col_3"><input [(ngModel)]="userService.username" id="text2" type="text" placeholder="Username" /></div>
+  <div class="col_1"><label class="medium">Password</label></div>
+  <div class="col_3"><input [(ngModel)]="userService.password" id="text2" type="text" placeholder="Password" /></div>
+  <div class="col_1"><button class="small" (click)="login()"><i class="fa  fa-arrow-circle-right"></i> Login</button></div>
+</div>
+<hr/>
+<div class="grid flex">
+  <div class="col_1"><label class="medium">Username</label></div>
+  <div class="col_3"><input [(ngModel)]="userService.usernameSU" id="text2" type="text" placeholder="Username" /></div>
+  <div class="col_1"><label class="medium">Password</label></div>
+  <div class="col_3"><input [(ngModel)]="userService.passwordSU" id="text2" type="text" placeholder="Password" /></div>
+  <div class="col_2"><input [(ngModel)]="userService.adminSU" id="text2" type="checkbox" placeholder="Admin" />Admin</div>
+  <div class="col_2"><button class="small" (click)="signup()"><i class="fa fa-plus-circle"></i> Signup</button></div>
+</div>

@@ -1,0 +1,27 @@
+<h3>
+  Total Revenue: {{revenue | currency}}</h3>
+<h3>Inventory Size: {{itemCount}}</h3>
+<button (click)="userService.logout()" md-raised-button>Logout</button>
+
+<h3>Users ({{userCount}}):</h3>
+<table>
+  <tr>
+    <td>Username</td>
+    <td>Password</td>
+    <td>Admin</td>
+  </tr>
+  <tr *ngFor="let user of users">
+    <td>
+      {{user.username}}
+    </td>
+    <td>
+      {{user.password}}
+    </td>
+    <td>
+      {{user.admin}}
+    </td>
+    <td>
+      <button md-raised-button (click)="removeUser(user)">Remove</button>
+    </td>
+  </tr>
+</table>

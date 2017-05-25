@@ -1,0 +1,14 @@
+ <div>
+
+    <button (click)="buyAll()">Buy All</button>
+    <button (click)="cartService.clear()">Clear Shopping Cart</button>
+
+    <!-- Show everything in the cart. -->
+    <item-listing 
+        [link]="false" 
+        [items]="cartService.cart" 
+        [enableRemove]="true" 
+        (onRemove)="removeFromCart($event)" 
+        [cart]="true"></item-listing>
+
+</div>

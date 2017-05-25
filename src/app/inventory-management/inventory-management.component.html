@@ -1,0 +1,51 @@
+<div>
+  <button md-raised-button (click)="clearInventory()" value="Clear Inventory">Clear Inventory</button>
+  <button md-raised-button (click)="clearStock()" value="Clear Stock">Clear Stock</button>
+</div>
+
+<div class="wide">
+        <h3>New Item:</h3>
+</div>
+<div class="wide">
+  <table>
+    <tr>
+      <td>
+      </td>
+      <td>
+          <input placeholder="Name" [(ngModel)]="create.name">
+      </td>
+      <td>
+          <input placeholder="Price" [(ngModel)]="create.price">
+      </td>
+      <td>
+          <input placeholder="Category" [(ngModel)]="create.category">
+      </td>
+      <td>
+          <input placeholder="Quantity" [(ngModel)]="create.count">
+      </td>
+      <td>
+
+			<button md-mini-fab (click)="createNewItem()"><span class="material-icons">add_circle</span></button>
+      </td>
+    </tr>
+
+    <tr>
+
+      <td colspan="6">
+          <textarea cols="300" placeholder="Description" [(ngModel)]="create.description"></textarea>
+      </td>
+    </tr>
+    <tr>
+
+      <td colspan="6">
+          <input placeholder="Image" size="300" [(ngModel)]="create.image">
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="wide">
+<h3>Inventory</h3>
+</div>
+
+<item-listing [admin]="true" [items]="stock" (onRemove)="removeFromStock($event)" (onBuy)="addToCart($event)" (onUpdate)="updateItem($event)"></item-listing>

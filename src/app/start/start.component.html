@@ -1,0 +1,3 @@
+<app-sign-in *ngIf="!userService.isMember()"></app-sign-in>
+<app-overview *ngIf="userService.isAdmin()"></app-overview>
+<app-signed-in *ngIf="userService.isNonAdmin()"></app-signed-in>

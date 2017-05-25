@@ -1,0 +1,24 @@
+<!-- make sure we have an item. -->
+<div *ngIf="item!=null">
+
+  <div class="col_12">
+    <app-item
+        [item]="item" 
+        [wide]="true" 
+        [link]="false" 
+        [enableBuy]="userService.isMember()" 
+        [enableRemove]="false" 
+        (onBuy)="buy()"></app-item>
+  </div>
+    <h3>Similar Items ({{item.category}}):</h3>
+  <div class="col_12">
+      <item-listing 
+          [small]="true"  
+          [items]="similarItems" 
+          [link]="true" 
+          [enableBuy]="false" 
+          [enableDescription]="false" 
+          [enableRemove]="false">
+      </item-listing>
+  </div>
+</div>

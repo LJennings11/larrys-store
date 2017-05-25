@@ -1,0 +1,28 @@
+<div *ngFor="let checkout of transactions">
+    <h4>{{checkout.username}} - Checkout at {{checkout.date}} ({{checkout.total | currency}})</h4>
+    <table cellspacing="0" cellpadding="0">
+
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of checkout.items">
+                <td>
+                    <a routerLink="/item/{{item.id}}">{{item.name}}</a>
+                </td>
+                <td>
+                    {{item.price | currency}}
+                </td>
+                <td>
+                    <a routerLink="/search?query={{item.category}}">{{item.category}}</a>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+</div>
