@@ -4,11 +4,24 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development backend server
 
-Run `node server.js` for the development backend server. This will start a server on port 3000.
+Run `node server.js` for the development backend server. This will start a server on port 3000. 
+
+## Searching
+
+You can search buy specifiying a full category, or buy specifiying a partial name. The search is case-insensitive.
+
+## Admin actions
+
+Administrators can edit add items, remove members, and view all previous transactions. Adminstrator actions are require a token. This token is passed on the REST calls.
+
+## Non-Admin actions
+
+Anyone can view the shop.
+Members, when logged in, can add items to their cart and buy things. User specific actions require a token. This token is passed on the REST calls.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files. 
 
 ## Code scaffolding
 
